@@ -1,0 +1,11 @@
+#!/usr/bin/expect -f
+
+set timeout 20
+spawn ssh phil@108.178.153.147
+expect "password:"
+send "phil\r"
+expect "$ "
+send "whoami && hostname && uname -a\r"
+expect "$ "
+send "exit\r"
+expect eof
