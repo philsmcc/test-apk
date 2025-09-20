@@ -1,18 +1,37 @@
+108.178.153.146 - - [19/Sep/2025 23:55:59] "GET /chat-widget.js HTTP/1.1" 200 -
+----------------------------------------
+Exception occurred during processing of request from ('162.142.125.115', 43910)
 Traceback (most recent call last):
-  File "<frozen runpy>", line 198, in _run_module_as_main
-  File "<frozen runpy>", line 88, in _run_code
-  File "/usr/lib/python3.12/http/server.py", line 1314, in <module>
-    test(
-  File "/usr/lib/python3.12/http/server.py", line 1261, in test
-    with ServerClass(addr, HandlerClass) as httpd:
-         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/usr/lib/python3.12/socketserver.py", line 457, in __init__
-    self.server_bind()
-  File "/usr/lib/python3.12/http/server.py", line 1308, in server_bind
-    return super().server_bind()
-           ^^^^^^^^^^^^^^^^^^^^^
-  File "/usr/lib/python3.12/http/server.py", line 136, in server_bind
-    socketserver.TCPServer.server_bind(self)
-  File "/usr/lib/python3.12/socketserver.py", line 473, in server_bind
-    self.socket.bind(self.server_address)
-OSError: [Errno 98] Address already in use
+  File "/usr/lib/python3.12/socketserver.py", line 318, in _handle_request_noblock
+    self.process_request(request, client_address)
+  File "/usr/lib/python3.12/socketserver.py", line 349, in process_request
+    self.finish_request(request, client_address)
+  File "/usr/lib/python3.12/socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "/usr/lib/python3.12/http/server.py", line 672, in __init__
+    super().__init__(*args, **kwargs)
+  File "/usr/lib/python3.12/socketserver.py", line 761, in __init__
+    self.handle()
+  File "/usr/lib/python3.12/http/server.py", line 436, in handle
+    self.handle_one_request()
+  File "/usr/lib/python3.12/http/server.py", line 404, in handle_one_request
+    self.raw_requestline = self.rfile.readline(65537)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/socket.py", line 707, in readinto
+    return self._sock.recv_into(b)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+ConnectionResetError: [Errno 104] Connection reset by peer
+----------------------------------------
+162.142.125.115 - - [20/Sep/2025 00:24:10] "GET / HTTP/1.1" 200 -
+162.142.125.115 - - [20/Sep/2025 00:24:14] "GET / HTTP/1.1" 200 -
+162.142.125.115 - - [20/Sep/2025 00:24:15] code 404, message File not found
+162.142.125.115 - - [20/Sep/2025 00:24:15] "GET /favicon.ico HTTP/1.1" 404 -
+162.142.125.115 - - [20/Sep/2025 00:24:15] code 505, message Invalid HTTP version (2.0)
+162.142.125.115 - - [20/Sep/2025 00:24:15] "PRI * HTTP/2.0" 505 -
+162.142.125.115 - - [20/Sep/2025 00:24:19] "GET / HTTP/1.1" 200 -
+162.142.125.115 - - [20/Sep/2025 00:24:23] code 505, message Invalid HTTP version (2.0)
+162.142.125.115 - - [20/Sep/2025 00:24:23] "PRI * HTTP/2.0" 505 -
+162.142.125.115 - - [20/Sep/2025 00:24:24] code 404, message File not found
+162.142.125.115 - - [20/Sep/2025 00:24:24] "GET /favicon.ico HTTP/1.1" 404 -
+162.142.125.115 - - [20/Sep/2025 00:24:24] code 404, message File not found
+162.142.125.115 - - [20/Sep/2025 00:24:24] "GET /wiki HTTP/1.1" 404 -
