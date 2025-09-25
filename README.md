@@ -11,10 +11,18 @@ A full-screen Android WebView app that displays interactive trivia games. Perfec
 Click to download the ready-to-install Android app:
 
 ### **🎯 [TriviaChalkboard.apk](https://github.com/philsmcc/test-apk/raw/main/TriviaChalkboard.apk)** ⬇️
-**Recommended** - Latest version with trivia game (3.2MB)
+**🆕 Enhanced CSS Rendering** - Latest version with improved visual display (3.2MB)
+
+### **🎨 CSS Fixes Included:**
+- ✅ Hardware-accelerated rendering for smooth CSS animations
+- ✅ Enhanced WebView settings for better browser compatibility  
+- ✅ Auto-injected CSS fixes for text and layout issues
+- ✅ Chrome DevTools debugging enabled for troubleshooting
+- ✅ Improved viewport handling for responsive design
 
 ### Alternative Versions:
-- **[TriviaWebViewApp.apk](https://github.com/philsmcc/test-apk/raw/main/TriviaWebViewApp.apk)** - Intermediate version (3.0MB)
+- **[TriviaChalkboard_Enhanced.apk](https://github.com/philsmcc/test-apk/raw/main/TriviaChalkboard_Enhanced.apk)** - Same as above (3.2MB)
+- **[TriviaWebViewApp.apk](https://github.com/philsmcc/test-apk/raw/main/TriviaWebViewApp.apk)** - Previous version (3.0MB)
 - **[WebViewApp.apk](https://github.com/philsmcc/test-apk/raw/main/WebViewApp.apk)** - Generic WebView app (3.0MB)
 
 ## 🚀 Quick Start
@@ -34,11 +42,12 @@ Click to download the ready-to-install Android app:
 
 ## 🔧 Features
 
-- ✅ **WebView Integration** - Uses Android's Chrome WebView engine
+- ✅ **Enhanced CSS Rendering** - Hardware-accelerated, browser-quality CSS display
+- ✅ **WebView Integration** - Uses Android's Chrome WebView engine with optimizations
 - ✅ **JavaScript Support** - Full HTML5, CSS3, and JS compatibility
 - ✅ **Touch Interactions** - Complete touch and gesture support
-- ✅ **Offline Ready** - Cached content works without internet*
-- ✅ **Performance Optimized** - Smooth gameplay experience
+- ✅ **Chrome DevTools** - Built-in debugging support for web developers
+- ✅ **Performance Optimized** - Smooth gameplay and animations
 - ✅ **Universal Compatibility** - Android 5.0+ (API 21-33)
 
 ## 📋 System Requirements
@@ -127,6 +136,24 @@ cd android-webview-app
 └── README.md                     # This file
 ```
 
+## 🎨 CSS Rendering Quality
+
+The latest version includes **major CSS rendering improvements** to ensure your trivia game displays exactly like it would in a regular web browser:
+
+### **Chrome DevTools Debugging** 🔧
+1. Install the APK and run the app
+2. Connect your Android device via USB (Developer Mode enabled)
+3. Open Chrome on your computer → `chrome://inspect`
+4. Find "Trivia Chalkboard" and click "Inspect"
+5. Use full Chrome DevTools to debug CSS and JavaScript
+
+### **What's Enhanced** ✨
+- Hardware-accelerated CSS animations and transitions
+- Proper text rendering and font display  
+- Responsive design and viewport handling
+- Flexbox and CSS Grid layout support
+- Better color accuracy and visual effects
+
 ## 🐛 Troubleshooting
 
 ### Installation Issues
@@ -134,11 +161,19 @@ cd android-webview-app
 - **Check available storage** (need ~50MB)
 - **Try ADB install** if manual fails: `adb install TriviaChalkboard.apk`
 
+### CSS/Visual Issues
+- **CSS not rendering properly**: Download the latest enhanced version above
+- **Use Chrome DevTools**: Connect via `chrome://inspect` for debugging
+- **Check WebView version**: Update Android System WebView via Play Store
+- **Compare with browser**: Test same URL in Chrome Mobile to verify
+
 ### Runtime Issues
 - **Game won't load**: Check internet connection
 - **App crashes**: Clear app data or reinstall
 - **Touch issues**: Restart app or device
 - **Slow performance**: Close background apps
+
+### **📚 Detailed CSS Guide**: [CSS_RENDERING_FIXES.md](https://github.com/philsmcc/test-apk/blob/main/CSS_RENDERING_FIXES.md)
 
 ## 📞 Support
 
@@ -163,6 +198,12 @@ This project is open source. Feel free to modify and distribute according to you
 
 ## 🎉 Ready to Play!
 
-**[⬇️ Download TriviaChalkboard.apk](https://github.com/philsmcc/test-apk/raw/main/TriviaChalkboard.apk)** and start your trivia adventure!
+**[⬇️ Download TriviaChalkboard.apk](https://github.com/philsmcc/test-apk/raw/main/TriviaChalkboard.apk)** with enhanced CSS rendering and start your trivia adventure!
+
+### 🆕 **Latest Version Features:**
+- 🎨 **Enhanced CSS Rendering** - Browser-quality visual display
+- 🚀 **Hardware Acceleration** - Smooth animations and performance  
+- 🔧 **Chrome DevTools** - Full debugging support built-in
+- ⚡ **Optimized WebView** - Better compatibility and responsiveness
 
 Made with ❤️ for interactive learning and entertainment.
