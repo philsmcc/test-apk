@@ -1,228 +1,168 @@
-# Open WebUI Chat Widget
+# 🎯 Trivia Chalkboard Android App
 
-A simple, embeddable chat widget that connects to your Open WebUI instance, allowing you to add AI chat functionality to any website.
+[![APK Download](https://img.shields.io/badge/📱%20Download-APK-green.svg)](https://github.com/philsmcc/test-apk/raw/main/TriviaChalkboard.apk)
+[![Android](https://img.shields.io/badge/Android-5.0%2B-brightgreen.svg)](https://android.com)
+[![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+
+A full-screen Android WebView app that displays interactive trivia games. Perfect for educational environments, entertainment, and kiosk applications.
+
+## 📱 Download APK
+
+Click to download the ready-to-install Android app:
+
+### **🎯 [TriviaChalkboard.apk](https://github.com/philsmcc/test-apk/raw/main/TriviaChalkboard.apk)** ⬇️
+**Recommended** - Latest version with trivia game (3.2MB)
+
+### Alternative Versions:
+- **[TriviaWebViewApp.apk](https://github.com/philsmcc/test-apk/raw/main/TriviaWebViewApp.apk)** - Intermediate version (3.0MB)
+- **[WebViewApp.apk](https://github.com/philsmcc/test-apk/raw/main/WebViewApp.apk)** - Generic WebView app (3.0MB)
 
 ## 🚀 Quick Start
 
-### 1. Basic Integration
+1. **Download** `TriviaChalkboard.apk` from the links above
+2. **Enable** "Unknown Sources" in Android Settings → Security
+3. **Install** the APK file on your Android device
+4. **Launch** "Trivia Chalkboard" and start playing!
 
-Simply include the JavaScript file in your HTML:
+## 🎮 What It Does
 
-```html
-<!DOCTYPE html>
-<html>
-<head>
-    <title>My Website</title>
-</head>
-<body>
-    <!-- Your website content -->
-    
-    <!-- Add the chat widget -->
-    <script src="chat-widget.js"></script>
-</body>
-</html>
+- **📱 Full-Screen Experience**: Launches directly into the trivia game with no Android UI
+- **🎯 Interactive Trivia**: 20-second trivia chalkboard game
+- **📚 Educational Content**: Perfect for learning environments
+- **🎨 Responsive Design**: Works on phones and tablets
+- **⚡ Instant Access**: No app store required, direct APK install
+
+## 🔧 Features
+
+- ✅ **WebView Integration** - Uses Android's Chrome WebView engine
+- ✅ **JavaScript Support** - Full HTML5, CSS3, and JS compatibility
+- ✅ **Touch Interactions** - Complete touch and gesture support
+- ✅ **Offline Ready** - Cached content works without internet*
+- ✅ **Performance Optimized** - Smooth gameplay experience
+- ✅ **Universal Compatibility** - Android 5.0+ (API 21-33)
+
+## 📋 System Requirements
+
+- **Operating System**: Android 5.0 (API 21) or higher
+- **RAM**: 2GB+ recommended
+- **Storage**: 50MB available space
+- **Network**: Internet connection for initial load
+- **Permissions**: Internet, Camera, Location (for web features)
+
+## 🛠️ Installation Methods
+
+### Method 1: Direct APK Install (Recommended)
+```bash
+# Via ADB (fastest)
+adb install TriviaChalkboard.apk
+
+# Or manual install on device
+1. Download APK to device
+2. Enable "Unknown Sources" 
+3. Tap APK file to install
 ```
 
-That's it! The chat widget will automatically appear in the bottom-right corner.
+### Method 2: Cloud Transfer
+1. Upload APK to Google Drive/Dropbox
+2. Download on Android device
+3. Install as above
 
-### 2. Configuration
+## 🎯 Use Cases
 
-Before using, update the configuration at the top of `chat-widget.js`:
+### 🏫 Educational
+- Classroom quiz sessions
+- Interactive learning games
+- Student engagement tools
+- Training assessments
 
-```javascript
-const CONFIG = {
-    // Your Open WebUI instance URL
-    openWebUIUrl: 'http://108.178.153.147:80',
-    
-    // Model to use for chat (your customized model)
-    model: 'smollm2:360m',
-    
-    // Widget appearance
-    position: 'bottom-right', // bottom-right, bottom-left, top-right, top-left
-    theme: 'blue', // blue, green, purple, dark
-    
-    // Chat settings
-    placeholder: 'Ask me anything...',
-    welcomeMessage: 'Hello! How can I help you today?',
-};
+### 🎉 Entertainment
+- Party games and icebreakers
+- Team building activities
+- Quick brain teasers
+- Waiting room entertainment
+
+### 💼 Professional
+- Kiosk applications
+- Trade show interactions
+- Corporate training
+- Customer engagement tools
+
+## 🔧 Customization
+
+The app is built from source code in this repository. To customize:
+
+### Change Website URL
+Edit `android-webview-app/app/src/main/java/com/test/webviewapp/MainActivity.java`:
+```java
+private static final String DEFAULT_URL = "https://your-website-here.com";
 ```
 
-## 🎨 Customization
-
-### Themes
-
-Choose from 4 built-in themes:
-- `blue` (default) - Professional blue theme
-- `green` - Nature-inspired green theme  
-- `purple` - Creative purple theme
-- `dark` - Sleek dark theme
-
-### Positioning
-
-Position the widget anywhere on the page:
-- `bottom-right` (default)
-- `bottom-left`
-- `top-right` 
-- `top-left`
-
-### Custom Styling
-
-The widget uses CSS classes prefixed with `openwebui-` to avoid conflicts. You can override styles:
-
-```css
-.openwebui-chat-button {
-    background: #your-color !important;
-}
-
-.openwebui-chat-popup {
-    width: 400px !important; /* Make wider */
-}
+### Change App Name
+Edit `android-webview-app/app/src/main/res/values/strings.xml`:
+```xml
+<string name="app_name">Your App Name</string>
 ```
 
-## 📋 Features
-
-- ✅ **Easy Integration** - Just one script tag
-- ✅ **Responsive Design** - Works on desktop and mobile
-- ✅ **Auto Authentication** - Handles Open WebUI authentication automatically
-- ✅ **Session Management** - Maintains conversation history
-- ✅ **Customizable Themes** - Multiple color schemes
-- ✅ **Flexible Positioning** - Place anywhere on the page
-- ✅ **Error Handling** - Graceful error messages
-- ✅ **Loading States** - Visual feedback during API calls
-- ✅ **No Dependencies** - Pure vanilla JavaScript
-
-## 🔧 Advanced Usage
-
-### Programmatic Control
-
-```javascript
-// Send a message programmatically
-window.OpenWebUIChatWidget.sendMessage();
-
-// Add a message to the chat
-window.OpenWebUIChatWidget.addMessage('Hello from JavaScript!', false);
-
-// Access the configuration
-console.log(window.OpenWebUIChatWidget.config);
-
-// Re-initialize if needed
-window.OpenWebUIChatWidget.initialize();
+### Rebuild APK
+```bash
+cd android-webview-app
+./gradlew assembleDebug
 ```
 
-### Custom Event Handling
-
-The widget exposes functions you can use in your own code:
-
-```javascript
-// Listen for when the widget is ready
-document.addEventListener('DOMContentLoaded', function() {
-    // Widget is now available
-    if (window.OpenWebUIChatWidget) {
-        console.log('Chat widget loaded!');
-    }
-});
-```
-
-## 🛠️ Setup Requirements
-
-### Open WebUI Instance
-- Running Open WebUI instance (yours: `http://108.178.153.147:80`)
-- Accessible model (yours: `smollm2:360m`)
-- CORS enabled for your domain (Open WebUI handles this automatically)
-
-### Website Requirements
-- Modern web browser with JavaScript enabled
-- HTTPS recommended for production use
-- No other dependencies required
-
-## 🌐 CORS and Security
-
-The widget handles authentication automatically:
-
-1. **Onboarding Mode**: Creates temporary user if in onboarding
-2. **Auth Disabled**: Works without authentication
-3. **Auth Enabled**: Attempts to create session or use existing auth
-
-For production use:
-- Use HTTPS for your website and Open WebUI
-- Configure proper CORS settings in Open WebUI
-- Consider rate limiting and authentication requirements
-
-## 🔍 Troubleshooting
-
-### Widget Not Appearing
-- Check browser console for JavaScript errors
-- Ensure `chat-widget.js` is loading correctly
-- Verify Open WebUI URL is accessible
-
-### API Connection Issues
-- Check Open WebUI is running: `http://108.178.153.147:80`
-- Verify model name: `smollm2:360m`
-- Check browser network tab for failed requests
-- Ensure CORS is properly configured
-
-### Authentication Problems
-- Try refreshing the page to reset session
-- Check Open WebUI authentication settings
-- Verify the model is loaded and accessible
-
-### Performance Issues
-- Check Open WebUI server resources
-- Monitor network latency
-- Consider reducing message history length
-
-## 📁 File Structure
+## 📁 Repository Structure
 
 ```
-chat-widget.js          # Main widget script
-chat-widget-demo.html   # Demo page
-README.md              # This documentation
+├── TriviaChalkboard.apk          # 🎯 Main APK (recommended)
+├── TriviaWebViewApp.apk          # Alternative version
+├── WebViewApp.apk                # Generic version
+├── android-webview-app/          # 📱 Android Studio project
+│   ├── app/src/main/
+│   │   ├── java/                 # Java source code
+│   │   ├── res/                  # Android resources
+│   │   └── AndroidManifest.xml   # App configuration
+│   ├── build.gradle              # Build configuration
+│   └── gradlew                   # Gradle wrapper
+├── TRIVIA_APP_README.md          # 📚 Detailed app guide
+├── APK_INSTALLATION_GUIDE.md     # 🔧 Installation instructions
+└── README.md                     # This file
 ```
 
-## 🎯 Integration Examples
+## 🐛 Troubleshooting
 
-### Basic Website
-```html
-<script src="chat-widget.js"></script>
-```
+### Installation Issues
+- **Enable "Unknown Sources"** in Security settings
+- **Check available storage** (need ~50MB)
+- **Try ADB install** if manual fails: `adb install TriviaChalkboard.apk`
 
-### WordPress
-Add to your theme's `functions.php`:
-```php
-function add_chat_widget() {
-    wp_enqueue_script('chat-widget', get_template_directory_uri() . '/js/chat-widget.js', array(), '1.0.0', true);
-}
-add_action('wp_enqueue_scripts', 'add_chat_widget');
-```
+### Runtime Issues
+- **Game won't load**: Check internet connection
+- **App crashes**: Clear app data or reinstall
+- **Touch issues**: Restart app or device
+- **Slow performance**: Close background apps
 
-### React/Vue/Angular
-```javascript
-// In your component
-useEffect(() => {
-    const script = document.createElement('script');
-    script.src = '/chat-widget.js';
-    document.body.appendChild(script);
-}, []);
-```
+## 📞 Support
 
-## 🚀 Demo
+For issues or questions:
+1. Check the [Installation Guide](APK_INSTALLATION_GUIDE.md)
+2. Review [Trivia App Documentation](TRIVIA_APP_README.md)
+3. Verify device compatibility (Android 5.0+)
+4. Check device logs: `adb logcat | grep WebView`
 
-You can see the widget in action at: **http://108.178.153.147:8000/chat-widget-demo.html**
+## 🤝 Contributing
 
-The demo page shows all features and provides integration examples.
+1. Fork this repository
+2. Make your changes to the Android project
+3. Test on Android devices
+4. Submit a pull request
 
 ## 📄 License
 
-This chat widget is open source. Feel free to modify and customize for your needs.
-
-## 🤝 Support
-
-For issues or questions:
-1. Check the troubleshooting section above
-2. Verify your Open WebUI instance is running
-3. Check browser console for error messages
-4. Test with the demo page first
+This project is open source. Feel free to modify and distribute according to your needs.
 
 ---
 
-**Happy chatting! 🤖💬**
+## 🎉 Ready to Play!
+
+**[⬇️ Download TriviaChalkboard.apk](https://github.com/philsmcc/test-apk/raw/main/TriviaChalkboard.apk)** and start your trivia adventure!
+
+Made with ❤️ for interactive learning and entertainment.
