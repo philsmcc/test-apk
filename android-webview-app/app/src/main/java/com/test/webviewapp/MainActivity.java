@@ -103,16 +103,34 @@ public class MainActivity extends Activity {
             webSettings.setMixedContentMode(WebSettings.MIXED_CONTENT_COMPATIBILITY_MODE);
         }
         
-        // CSS and Rendering improvements
-        webSettings.setRenderPriority(WebSettings.RenderPriority.HIGH);
-        webSettings.setCacheMode(WebSettings.LOAD_DEFAULT);
-        webSettings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.TEXT_AUTOSIZING);
-        webSettings.setUseWideViewPort(true);
-        webSettings.setLoadWithOverviewMode(true);
+        // Android TV Stick / Android 10 Compatibility Settings
+        boolean isAndroid10OrLower = Build.VERSION.SDK_INT <= Build.VERSION_CODES.Q;
+        boolean isPotentiallyTVStick = isAndroid10OrLower;
         
-        // Force enable hardware acceleration for better CSS rendering
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            webView.setLayerType(View.LAYER_TYPE_HARDWARE, null);
+        if (isPotentiallyTVStick) {
+            // Conservative settings for Android TV sticks
+            webSettings.setRenderPriority(WebSettings.RenderPriority.NORMAL);
+            webSettings.setCacheMode(WebSettings.LOAD_NO_CACHE); // Force fresh content
+            webSettings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.NORMAL); // More compatible
+            
+            // Disable hardware acceleration on potentially problematic devices
+            webView.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+            
+            // Simpler viewport settings
+            webSettings.setUseWideViewPort(false);
+            webSettings.setLoadWithOverviewMode(false);
+        } else {
+            // Modern settings for newer devices
+            webSettings.setRenderPriority(WebSettings.RenderPriority.HIGH);
+            webSettings.setCacheMode(WebSettings.LOAD_DEFAULT);
+            webSettings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.TEXT_AUTOSIZING);
+            webSettings.setUseWideViewPort(true);
+            webSettings.setLoadWithOverviewMode(true);
+            
+            // Force enable hardware acceleration for better CSS rendering
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+                webView.setLayerType(View.LAYER_TYPE_HARDWARE, null);
+            }
         }
         
         // Zoom settings
@@ -120,16 +138,25 @@ public class MainActivity extends Activity {
         webSettings.setBuiltInZoomControls(true);
         webSettings.setDisplayZoomControls(false);
         
-        // Enhanced User Agent to match modern Chrome browser
+        // User Agent - Use simpler one for TV sticks
         String userAgent = webSettings.getUserAgentString();
         if (userAgent != null) {
-            // Use Chrome user agent for better compatibility
-            webSettings.setUserAgentString(userAgent.replace("wv", "").replace("Version/4.0", "Chrome/91.0"));
+            if (isPotentiallyTVStick) {
+                // Use more basic user agent for compatibility
+                webSettings.setUserAgentString(userAgent + " TriviaApp/1.0");
+            } else {
+                // Use Chrome user agent for better compatibility on modern devices
+                webSettings.setUserAgentString(userAgent.replace("wv", "").replace("Version/4.0", "Chrome/91.0"));
+            }
         }
         
-        // Enable WebView debugging for better CSS troubleshooting
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            WebView.setWebContentsDebuggingEnabled(true);
+        // Enable WebView debugging for better CSS troubleshooting (skip for TV sticks)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && !isPotentiallyTVStick) {
+            try {
+                WebView.setWebContentsDebuggingEnabled(true);
+            } catch (Exception e) {
+                // Some TV sticks might not support this
+            }
         }
         
         // WebView client to handle redirects and page loading
@@ -143,19 +170,41 @@ public class MainActivity extends Activity {
             @Override
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
-                // Inject JavaScript to force CSS re-evaluation
-                view.evaluateJavascript(
-                    "(function() {" +
-                    "  var style = document.createElement('style');" +
-                    "  style.textContent = 'html, body { -webkit-text-size-adjust: 100%; }';" +
-                    "  document.head.appendChild(style);" +
-                    "  if (window.getComputedStyle) {" +
-                    "    document.body.style.display = 'none';" +
-                    "    document.body.offsetHeight;" +
-                    "    document.body.style.display = '';" +
-                    "  }" +
-                    "})();", null
-                );
+                
+                // Android TV Stick / Android 10 specific CSS fixes
+                boolean isAndroid10OrLower = Build.VERSION.SDK_INT <= Build.VERSION_CODES.Q;
+                
+                if (isAndroid10OrLower) {
+                    // Conservative JavaScript injection for Android TV sticks
+                    view.evaluateJavascript(
+                        "(function() {" +
+                        "  try {" +
+                        "    var style = document.createElement('style');" +
+                        "    style.textContent = '" +
+                        "      html, body { -webkit-text-size-adjust: none !important; }" +
+                        "      * { -webkit-transform: translateZ(0); }" +
+                        "      body { zoom: 1; }" +
+                        "    ';" +
+                        "    if (document.head) document.head.appendChild(style);" +
+                        "    setTimeout(function() { window.scrollTo(0,1); window.scrollTo(0,0); }, 100);" +
+                        "  } catch(e) { console.log('CSS fix error:', e); }" +
+                        "})();", null
+                    );
+                } else {
+                    // Advanced JavaScript for modern devices
+                    view.evaluateJavascript(
+                        "(function() {" +
+                        "  var style = document.createElement('style');" +
+                        "  style.textContent = 'html, body { -webkit-text-size-adjust: 100%; }';" +
+                        "  document.head.appendChild(style);" +
+                        "  if (window.getComputedStyle) {" +
+                        "    document.body.style.display = 'none';" +
+                        "    document.body.offsetHeight;" +
+                        "    document.body.style.display = '';" +
+                        "  }" +
+                        "})();", null
+                    );
+                }
             }
             
             @Override
