@@ -1,0 +1,22 @@
+ICON INSTRUCTIONS
+================
+
+You need to add launcher icons to these directories:
+
+Required icon files:
+- mipmap-mdpi/ic_launcher.png (48x48 px)
+- mipmap-hdpi/ic_launcher.png (72x72 px)
+- mipmap-xhdpi/ic_launcher.png (96x96 px)
+- mipmap-xxhdpi/ic_launcher.png (144x144 px)
+- mipmap-xxxhdpi/ic_launcher.png (192x192 px)
+
+You can:
+1. Use Android Studio's Asset Studio to generate icons
+2. Create icons manually with the sizes above
+3. Use online generators like:
+   - https://romannurik.github.io/AndroidAssetStudio/
+   - https://icon.kitchen/
+   - https://developer.android.com/studio/write/image-asset-studio
+
+For now, you can use a simple colored square or download icons from the web.
+The app will still work without proper icons, but you'll get warnings during build.
