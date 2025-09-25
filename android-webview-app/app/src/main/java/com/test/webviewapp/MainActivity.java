@@ -83,8 +83,7 @@ public class MainActivity extends Activity {
         // Enable local storage
         webSettings.setDatabaseEnabled(true);
         
-        // Enable app cache
-        webSettings.setAppCacheEnabled(true);
+        // App cache is deprecated in API 33+, using other storage methods
         
         // Enable geolocation
         webSettings.setGeolocationEnabled(true);
