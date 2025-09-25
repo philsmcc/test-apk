@@ -21,9 +21,9 @@ import androidx.core.content.ContextCompat;
 public class MainActivity extends Activity {
     
     private WebView webView;
-    private static final String DEFAULT_URL = "https://www.google.com";
+    private static final String DEFAULT_URL = "https://big-file-orbit-vid-learningcouncil.s3.us-west-2.amazonaws.com/20sec-trivia-chalkboard.html";
     
-    // You can change this URL to any website you want to load
+    // Trivia Chalkboard website - 20 second trivia game
     private static final String WEBSITE_URL = DEFAULT_URL;
     
     private static final int PERMISSION_REQUEST_CODE = 100;
