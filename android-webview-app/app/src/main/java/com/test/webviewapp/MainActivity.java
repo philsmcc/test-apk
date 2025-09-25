@@ -76,6 +76,7 @@ public class MainActivity extends Activity {
         
         // Enable JavaScript
         webSettings.setJavaScriptEnabled(true);
+        webSettings.setJavaScriptCanOpenWindowsAutomatically(true);
         
         // Enable DOM storage
         webSettings.setDomStorageEnabled(true);
@@ -94,10 +95,24 @@ public class MainActivity extends Activity {
         // Allow file access
         webSettings.setAllowFileAccess(true);
         webSettings.setAllowContentAccess(true);
+        webSettings.setAllowFileAccessFromFileURLs(true);
+        webSettings.setAllowUniversalAccessFromFileURLs(true);
         
         // Mixed content mode for HTTPS sites with HTTP content
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             webSettings.setMixedContentMode(WebSettings.MIXED_CONTENT_COMPATIBILITY_MODE);
+        }
+        
+        // CSS and Rendering improvements
+        webSettings.setRenderPriority(WebSettings.RenderPriority.HIGH);
+        webSettings.setCacheMode(WebSettings.LOAD_DEFAULT);
+        webSettings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.TEXT_AUTOSIZING);
+        webSettings.setUseWideViewPort(true);
+        webSettings.setLoadWithOverviewMode(true);
+        
+        // Force enable hardware acceleration for better CSS rendering
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+            webView.setLayerType(View.LAYER_TYPE_HARDWARE, null);
         }
         
         // Zoom settings
@@ -105,15 +120,42 @@ public class MainActivity extends Activity {
         webSettings.setBuiltInZoomControls(true);
         webSettings.setDisplayZoomControls(false);
         
-        // User agent
-        webSettings.setUserAgentString(webSettings.getUserAgentString() + " WebViewApp/1.0");
+        // Enhanced User Agent to match modern Chrome browser
+        String userAgent = webSettings.getUserAgentString();
+        if (userAgent != null) {
+            // Use Chrome user agent for better compatibility
+            webSettings.setUserAgentString(userAgent.replace("wv", "").replace("Version/4.0", "Chrome/91.0"));
+        }
+        
+        // Enable WebView debugging for better CSS troubleshooting
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            WebView.setWebContentsDebuggingEnabled(true);
+        }
         
         // WebView client to handle redirects and page loading
         webView.setWebViewClient(new WebViewClient() {
             @Override
+            public void onPageStarted(WebView view, String url, android.graphics.Bitmap favicon) {
+                super.onPageStarted(view, url, favicon);
+                // Inject CSS fix for better rendering if needed
+            }
+            
+            @Override
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
-                // Page finished loading
+                // Inject JavaScript to force CSS re-evaluation
+                view.evaluateJavascript(
+                    "(function() {" +
+                    "  var style = document.createElement('style');" +
+                    "  style.textContent = 'html, body { -webkit-text-size-adjust: 100%; }';" +
+                    "  document.head.appendChild(style);" +
+                    "  if (window.getComputedStyle) {" +
+                    "    document.body.style.display = 'none';" +
+                    "    document.body.offsetHeight;" +
+                    "    document.body.style.display = '';" +
+                    "  }" +
+                    "})();", null
+                );
             }
             
             @Override
